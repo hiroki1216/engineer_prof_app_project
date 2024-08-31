@@ -44,6 +44,9 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "cs:fix":[
+            "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix"
         ]
     },
     "extra": {
