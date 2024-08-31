@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:latest
+    build:
+      context: ./mariaDB
+    container_name: ${DB_CONTAINER_NAME}
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+    volumes:
+      - ${DB_VOLUME}:/var/lib/mysql
+    user: 1000:1000
+    ports:
+      - ${DB_PORT}:3306
