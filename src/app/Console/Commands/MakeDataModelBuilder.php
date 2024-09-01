@@ -24,7 +24,7 @@ class MakeDataModelBuilder extends Command
         $class_name = $this->argument('class_file_name');
         $data_model_builder_name = $class_name.'DataModelBuilder';
         $data_model_builder_interface_name = $class_name.'NotifierInterface';
-        $class_file_path = app_path().'/Packages/Domain/Entities/'.$class_name.'.php';
+        $class_file_path = $this->getClassFilePath();
 
         if (! file_exists($class_file_path)) {
             $this->error('クラスファイルが存在しません。'.PHP_EOL.'パス：'.$class_file_path);
@@ -56,6 +56,14 @@ class MakeDataModelBuilder extends Command
         $this->writeToFile($interface_content, app_path().'/Packages/Notification/Interface/', $class_name.'NotifierInterface.php');
         // クラスファイルにnotifyメソッドを追加
         $this->addNotifyMethod($class_file_path, $class_file_content, $data_model_builder_interface_name);
+    }
+
+    /**
+     * クラスファイルのパスを取得します。
+     */
+    protected function getClassFilePath(): string
+    {
+        return app_path().'/Packages/Domain/Entities/'.$this->argument('class_file_name').'.php';
     }
 
     /**
@@ -240,7 +248,7 @@ class MakeDataModelBuilder extends Command
      * @param string $directory ディレクトリ
      * @param string $file_name ファイル名
      */
-    private function writeToFile(string $content, string $directory, string $file_name): void
+    protected function writeToFile(string $content, string $directory, string $file_name): void
     {
         if (! File::exists($directory)) {
             File::makeDirectory($directory, 0o755, true);
