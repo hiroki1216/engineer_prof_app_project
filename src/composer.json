@@ -47,6 +47,9 @@
         ],
         "cs:fix":[
             "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix"
+        ],
+        "test" : [
+            "vendor/bin/phpunit -c phpunit.xml"
         ]
     },
     "extra": {
